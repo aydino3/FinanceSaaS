@@ -5,7 +5,6 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer,
 } from 'recharts'
-import type { TooltipProps } from 'recharts'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'

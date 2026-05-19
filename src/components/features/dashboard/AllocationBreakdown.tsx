@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'
 import type { AllocationSlice } from '@/types/portfolio'
 
@@ -100,10 +99,9 @@ interface AllocationRowProps {
   isHovered: boolean
   isAnyHovered: boolean
   onHover: (id: string | null) => void
-  totalValue: number
 }
 
-function AllocationRow({ seg, isHovered, isAnyHovered, onHover, totalValue }: AllocationRowProps) {
+function AllocationRow({ seg, isHovered, isAnyHovered, onHover }: AllocationRowProps) {
   const barWidth = seg.percent
 
   return (
@@ -275,7 +273,6 @@ export function AllocationBreakdown({ allocations, totalValue }: AllocationBreak
             isHovered={hoveredId === slice.id}
             isAnyHovered={isAnyHovered}
             onHover={setHoveredId}
-            totalValue={totalValue}
           />
         ))}
       </div>

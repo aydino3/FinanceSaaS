@@ -22,12 +22,6 @@ function returnColor(v: number): string {
   return 'text-[var(--color-negative-emphasis)]'
 }
 
-function dayChangeColor(v: number): string {
-  if (v > 0) return 'text-[var(--color-positive)]'
-  if (v < 0) return 'text-[var(--color-negative)]'
-  return 'text-[var(--color-fg-subtle)]'
-}
-
 // ─────────────────────────────────────────────
 // POSITION CARD
 // ─────────────────────────────────────────────

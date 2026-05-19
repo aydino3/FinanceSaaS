@@ -52,7 +52,6 @@ const TAB_ITEMS = [
 ]
 
 interface TabButtonProps {
-  id: string
   label: string
   href: string
   icon: React.ReactNode
@@ -60,7 +59,7 @@ interface TabButtonProps {
   prefersReduced: boolean
 }
 
-function TabButton({ id, label, href, icon, isActive, prefersReduced }: TabButtonProps) {
+function TabButton({ label, href, icon, isActive, prefersReduced }: TabButtonProps) {
   return (
     <Link
       href={href}
@@ -119,7 +118,9 @@ export function MobileTabBar() {
       {TAB_ITEMS.slice(0, 2).map((tab) => (
         <TabButton
           key={tab.id}
-          {...tab}
+          label={tab.label}
+          href={tab.href}
+          icon={tab.icon}
           isActive={isActive(tab.href)}
           prefersReduced={prefersReduced}
         />
@@ -156,7 +157,9 @@ export function MobileTabBar() {
       {TAB_ITEMS.slice(2).map((tab) => (
         <TabButton
           key={tab.id}
-          {...tab}
+          label={tab.label}
+          href={tab.href}
+          icon={tab.icon}
           isActive={isActive(tab.href)}
           prefersReduced={prefersReduced}
         />

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import { useShellStore } from '@/stores/shell'
 import { NavigationSpine } from './NavigationSpine'
 import { ContextBar } from './ContextBar'
@@ -26,12 +26,20 @@ interface AppShellProps {
   children: React.ReactNode
 }
 
+// Stable no-op subscribe — mount-only signal never re-fires.
+const subscribeNoop = () => () => {}
+
 export function AppShell({ children }: AppShellProps) {
   const { toggleCommandPalette } = useShellStore()
 
-  // Hydration guard — Zustand persist reads localStorage on client only
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
+  // Hydration guard — Zustand persist reads localStorage on client only.
+  // useSyncExternalStore returns the server snapshot during SSR and the
+  // client snapshot after hydration, with no setState-in-effect.
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,   // client snapshot
+    () => false,  // server snapshot
+  )
 
   // Global ⌘K shortcut
   useEffect(() => {

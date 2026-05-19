@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CinematicCard } from '@/components/ui/CinematicCard'
-import { cn } from '@/lib/utils'
-import { easings, durations } from '@/lib/motion'
+import { easings } from '@/lib/motion'
 import type { AIInsight, InsightType, InsightPriority } from '@/types/insights'
 
 // ─────────────────────────────────────────────
@@ -32,15 +31,14 @@ const PRIORITY_CONFIG: Record<InsightPriority, { dot: string; label: string } | 
 // ─────────────────────────────────────────────
 
 function useTypewriter(text: string, charsPerSecond = 45, startDelayMs = 0) {
+  const isEmpty = text.length === 0
   const [displayed, setDisplayed] = useState('')
-  const [done, setDone] = useState(text.length === 0)
+  const [done, setDone] = useState(isEmpty)
   const timerRef    = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   useEffect(() => {
-    if (text.length === 0) { setDisplayed(''); setDone(true); return }
-    setDisplayed('')
-    setDone(false)
+    if (isEmpty) return
 
     timerRef.current = setTimeout(() => {
       let i = 0
@@ -58,7 +56,7 @@ function useTypewriter(text: string, charsPerSecond = 45, startDelayMs = 0) {
       clearTimeout(timerRef.current)
       clearInterval(intervalRef.current)
     }
-  }, [text, charsPerSecond, startDelayMs])
+  }, [text, charsPerSecond, startDelayMs, isEmpty])
 
   return { displayed, done }
 }

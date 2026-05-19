@@ -32,7 +32,11 @@ export function GeneratingLoader({ onComplete }: GeneratingLoaderProps) {
   const [completedSteps, setCompletedSteps] = useState(0)
   const [finishing, setFinishing] = useState(false)
   const onCompleteRef = useRef(onComplete)
-  onCompleteRef.current = onComplete
+
+  // Keep ref in sync with latest callback without retriggering the timer effect
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     const timers = STEP_DELAYS.map((delay, i) =>

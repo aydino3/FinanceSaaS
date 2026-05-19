@@ -128,11 +128,6 @@ export function BenchmarkGrid({ summary }: BenchmarkGridProps) {
     portfolioUsdReturn,
   } = summary
 
-  // Purchasing power ratio: how many TRY of purchasing power did each ₺100 invested become?
-  // CPI-deflated portfolio value = finalValue / (1 + cumulativeCpi/100) as indexed
-  const purchasingPowerGain = realReturn
-  const purchasingPowerBaseline = 0  // flat line — keeping pace with inflation = 0% real
-
   return (
     <div
       className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"

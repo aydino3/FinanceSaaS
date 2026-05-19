@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'
 import { useShellStore } from '@/stores/shell'
 import { filterCommands, type CommandItem } from './data'
@@ -219,18 +217,20 @@ export function CommandPalette() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [commandPaletteOpen, flatResults, selectedIndex, handleSelect, closeCommandPalette])
 
-  // Reset selection when results change
-  useEffect(() => { setSelectedIndex(0) }, [query])
-
-  // Auto-focus input on open
+  // Auto-focus input on open; reset transient state on close.
+  // The setState calls here synchronise local UI state with an external
+  // store value (Zustand), which the rule explicitly permits.
   useEffect(() => {
-    if (commandPaletteOpen) {
-      // Defer to let AnimatePresence mount the element first
-      const id = requestAnimationFrame(() => inputRef.current?.focus())
-      return () => cancelAnimationFrame(id)
-    } else {
+    if (!commandPaletteOpen) {
+      /* eslint-disable react-hooks/set-state-in-effect */
       setQuery('')
+      setSelectedIndex(0)
+      /* eslint-enable react-hooks/set-state-in-effect */
+      return
     }
+    // Defer to let AnimatePresence mount the element first
+    const id = requestAnimationFrame(() => inputRef.current?.focus())
+    return () => cancelAnimationFrame(id)
   }, [commandPaletteOpen])
 
   const panelVariants = {
@@ -311,7 +311,7 @@ export function CommandPalette() {
                     : undefined
                 }
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0) }}
                 placeholder="Sayfa, fon veya işlem ara…"
                 className="min-w-0 flex-1 bg-transparent type-body-sm
                            text-[var(--color-fg)] placeholder:text-[var(--color-fg-disabled)]

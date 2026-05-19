@@ -172,7 +172,7 @@ export function MonthlyHeatmap({ rows }: MonthlyHeatmapProps) {
             { bg: 'rgba(212,164,46,0.08)', border: 'rgba(212,164,46,0.14)', text: '#C4A060', label: 'Hafif üstün' },
             { bg: 'rgba(191,109,122,0.08)', border: 'rgba(191,109,122,0.16)', text: '#BF8090', label: 'Hafif geride' },
             { bg: 'rgba(191,109,122,0.18)', border: 'rgba(191,109,122,0.30)', text: '#BF6D7A', label: '−1pp veya daha geride' },
-          ].map(({ bg, border, text, label }) => (
+          ].map(({ bg, border, label }) => (
             <div key={label} className="flex items-center gap-1.5">
               <span
                 className="inline-block h-3 w-5 rounded-sm border"

@@ -37,8 +37,7 @@ function fmtYTick(v: number): string {
 
 interface TooltipPayload {
   dataKey?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value?: number | string | [number, number] | [string, string] | null | undefined
+  value?: number | string | [number, number] | [string, string] | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
