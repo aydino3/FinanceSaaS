@@ -1,6 +1,6 @@
 'use client'
 
-import { useShellStore } from '@/stores/shell'
+import { useShellStore, TAB_LABELS } from '@/stores/shell'
 import { cn } from '@/lib/utils'
 
 // ─────────────────────────────────────────────
@@ -42,7 +42,8 @@ function MetricPill({ label, value, positive }: MetricPillProps) {
 }
 
 export function ContextBar() {
-  const { openCommandPalette } = useShellStore()
+  const { openCommandPalette, activeTab } = useShellStore()
+  const breadcrumb = TAB_LABELS[activeTab]
 
   return (
     <header
@@ -52,9 +53,9 @@ export function ContextBar() {
                  bg-[rgba(12,12,14,0.55)] backdrop-blur-xl backdrop-saturate-150
                  px-4"
     >
-      {/* Left: breadcrumb placeholder */}
+      {/* Left: live breadcrumb */}
       <nav aria-label="Sayfa yolu" className="flex items-center gap-1.5">
-        <span className="type-label-sm text-[var(--color-fg-subtle)]">Portföy</span>
+        <span className="type-label-sm text-[var(--color-fg-subtle)]">FinansOS</span>
         <svg
           aria-hidden="true"
           width="12"
@@ -69,7 +70,7 @@ export function ContextBar() {
         >
           <path d="M4 2l4 4-4 4" />
         </svg>
-        <span className="type-label-sm text-[var(--color-fg-muted)]">Genel Bakış</span>
+        <span className="type-label-sm text-[var(--color-fg-muted)]">{breadcrumb.long}</span>
       </nav>
 
       {/* Center: ambient market metrics */}

@@ -158,7 +158,7 @@ function ResultItem({ item, isSelected, onSelect, onHover }: ResultItemProps) {
 // ─────────────────────────────────────────────
 
 export function CommandPalette() {
-  const { commandPaletteOpen, closeCommandPalette } = useShellStore()
+  const { commandPaletteOpen, closeCommandPalette, setActiveTab } = useShellStore()
   const prefersReduced = useReducedMotion() ?? false
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -181,11 +181,11 @@ export function CommandPalette() {
     (item: CommandItem) => {
       closeCommandPalette()
       setQuery('')
-      if (item.href) {
-        window.location.href = item.href
+      if (item.tabTarget) {
+        setActiveTab(item.tabTarget)
       }
     },
-    [closeCommandPalette]
+    [closeCommandPalette, setActiveTab]
   )
 
   // Keyboard navigation

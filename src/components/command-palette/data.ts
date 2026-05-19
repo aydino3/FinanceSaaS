@@ -1,26 +1,28 @@
+import type { TabId } from '@/stores/shell'
+
 export type CommandItemType = 'page' | 'action' | 'fund'
 
 export interface CommandItem {
-  id: string
-  type: CommandItemType
-  label: string
+  id:          string
+  type:        CommandItemType
+  label:       string
   description?: string
-  keywords?: string[]
-  shortcut?: string[]
-  href?: string
-  icon: string // emoji or SVG path name
-  group: string
+  keywords?:   string[]
+  shortcut?:   string[]
+  tabTarget?:  TabId     // SPA navigation — set activeTab on select
+  icon:        string
+  group:       string
 }
 
 export const COMMAND_ITEMS: CommandItem[] = [
-  // Navigation
+  // ── Navigation (SPA tabs) ──────────────────────────────────────
   {
-    id: 'nav-dashboard',
+    id: 'nav-portfolio',
     type: 'page',
     label: 'Portföy',
-    description: 'Portföy özeti ve anlık değer',
-    keywords: ['portfolio', 'portföy', 'ana sayfa', 'home'],
-    href: '/dashboard',
+    description: 'Portföy özeti, değer ve anlık KPI\'lar',
+    keywords: ['portfolio', 'portföy', 'ana', 'home', 'genel'],
+    tabTarget: 'portfolio',
     icon: 'chart-pie',
     group: 'Sayfalar',
   },
@@ -28,90 +30,52 @@ export const COMMAND_ITEMS: CommandItem[] = [
     id: 'nav-explorer',
     type: 'page',
     label: 'Fon Keşfi',
-    description: '847+ TEFAS fonu listesi ve filtreler',
-    keywords: ['fund', 'fon', 'tefas', 'explorer', 'keşif'],
-    href: '/dashboard/explorer',
+    description: '24+ TEFAS fonu — filtrele, sırala, karşılaştır',
+    keywords: ['fund', 'fon', 'tefas', 'explorer', 'keşif', 'hisse', 'altın'],
+    tabTarget: 'explorer',
     icon: 'magnify',
     group: 'Sayfalar',
   },
   {
-    id: 'nav-analytics',
+    id: 'nav-inflation',
     type: 'page',
-    label: 'Analitik',
-    description: 'Enflasyon düzeltmeli getiri grafikleri',
-    keywords: ['analitik', 'analytics', 'inflation', 'enflasyon', 'grafik'],
-    href: '/dashboard/analytics',
+    label: 'Reel Getiri Analizi',
+    description: 'TÜFE düzeltmeli getiri, BIST ve USD karşılaştırması',
+    keywords: ['analitik', 'analytics', 'inflation', 'enflasyon', 'grafik', 'reel', 'tüfe'],
+    tabTarget: 'inflation',
     icon: 'chart-line',
     group: 'Sayfalar',
   },
   {
-    id: 'nav-macro',
-    type: 'page',
-    label: 'Makro',
-    description: 'TCMB faiz, CPI ve ekonomik göstergeler',
-    keywords: ['macro', 'makro', 'tcmb', 'faiz', 'cpi', 'enflasyon'],
-    href: '/dashboard/macro',
-    icon: 'globe',
-    group: 'Sayfalar',
-  },
-  {
-    id: 'nav-ai-brief',
+    id: 'nav-insights',
     type: 'page',
     label: 'AI Brief',
-    description: 'Günlük yapay zeka yatırım özeti',
-    keywords: ['ai', 'brief', 'yapay zeka', 'özet', 'insight'],
-    href: '/dashboard/insights',
+    description: 'Günlük yapay zeka yatırım özeti ve içgörüler',
+    keywords: ['ai', 'brief', 'yapay zeka', 'özet', 'insight', 'içgörü'],
+    tabTarget: 'insights',
     icon: 'sparkle',
     group: 'Sayfalar',
   },
-  {
-    id: 'nav-watchlist',
-    type: 'page',
-    label: 'İzleme Listesi',
-    description: 'Takip ettiğiniz fonlar ve alarmlar',
-    keywords: ['watchlist', 'izleme', 'alarm', 'takip'],
-    href: '/dashboard/watchlist',
-    icon: 'bookmark',
-    group: 'Sayfalar',
-  },
-  {
-    id: 'nav-journal',
-    type: 'page',
-    label: 'Yatırım Defteri',
-    description: 'Kararlarınızı ve notlarınızı kaydedin',
-    keywords: ['journal', 'defter', 'not', 'karar'],
-    href: '/dashboard/journal',
-    icon: 'pencil',
-    group: 'Sayfalar',
-  },
-  {
-    id: 'nav-settings',
-    type: 'page',
-    label: 'Ayarlar',
-    description: 'Hesap ve tercih ayarları',
-    keywords: ['settings', 'ayarlar', 'hesap', 'profil'],
-    href: '/dashboard/settings',
-    icon: 'cog',
-    group: 'Sayfalar',
-  },
 
-  // Actions
+  // ── Actions ───────────────────────────────────────────────────
   {
-    id: 'action-add-position',
+    id: 'action-explore-funds',
     type: 'action',
-    label: 'Pozisyon Ekle',
-    description: 'Portföye yeni fon veya varlık ekle',
-    keywords: ['add', 'ekle', 'pozisyon', 'yeni', 'new'],
-    shortcut: ['N'],
-    icon: 'plus',
+    label: 'Fonları Keşfet',
+    description: 'Fon keşfi sekmesini aç',
+    keywords: ['fon', 'keşif', 'ara', 'search'],
+    tabTarget: 'explorer',
+    shortcut: ['E'],
+    icon: 'magnify',
     group: 'İşlemler',
   },
   {
     id: 'action-compare',
     type: 'action',
-    label: 'Fonları Karşılaştır',
-    description: 'İki veya daha fazla fonu yan yana analiz et',
-    keywords: ['compare', 'karşılaştır', 'fon', 'analiz'],
+    label: 'Enflasyon Analizini Aç',
+    description: 'Reel getiri karşılaştırma grafiği',
+    keywords: ['compare', 'karşılaştır', 'enflasyon', 'analiz', 'grafik'],
+    tabTarget: 'inflation',
     icon: 'scale',
     group: 'İşlemler',
   },
@@ -125,34 +89,34 @@ export const COMMAND_ITEMS: CommandItem[] = [
     group: 'İşlemler',
   },
 
-  // Featured funds
+  // ── Featured funds (navigate to explorer) ─────────────────────
   {
-    id: 'fund-galata',
+    id: 'fund-galata-hisse',
     type: 'fund',
-    label: 'GAF — Galata Fon A.Ş.',
-    description: 'Hisse Senedi Fonu · %142.3 YTD',
-    keywords: ['galata', 'gaf', 'hisse', 'fon'],
-    href: '/dashboard/explorer/GAF',
+    label: 'GAH — Galata Portföy Hisse',
+    description: 'Hisse Senedi Fonu · %168.4 YTD',
+    keywords: ['galata', 'gah', 'hisse', 'fon'],
+    tabTarget: 'explorer',
     icon: 'fund',
     group: 'Popüler Fonlar',
   },
   {
-    id: 'fund-akbank',
+    id: 'fund-ziraat-altin',
     type: 'fund',
-    label: 'AKB — Akbank Portföy',
-    description: 'Borçlanma Araçları Fonu · %98.7 YTD',
-    keywords: ['akbank', 'akb', 'borçlanma', 'fon'],
-    href: '/dashboard/explorer/AKB',
+    label: 'ZAF — Ziraat Altın Katılım',
+    description: 'Altın Fonu · %134.8 YTD',
+    keywords: ['ziraat', 'zaf', 'altın', 'gold', 'fon'],
+    tabTarget: 'explorer',
     icon: 'fund',
     group: 'Popüler Fonlar',
   },
   {
-    id: 'fund-enpara',
+    id: 'fund-ykl',
     type: 'fund',
-    label: 'ENP — Enpara Para Piyasası',
-    description: 'Para Piyasası Fonu · %89.2 YTD',
-    keywords: ['enpara', 'enp', 'para piyasası', 'fon'],
-    href: '/dashboard/explorer/ENP',
+    label: 'YKL — Yapı Kredi Likit',
+    description: 'Para Piyasası Fonu · %67.3 YTD',
+    keywords: ['yapı kredi', 'ykl', 'likit', 'para piyasası'],
+    tabTarget: 'explorer',
     icon: 'fund',
     group: 'Popüler Fonlar',
   },
