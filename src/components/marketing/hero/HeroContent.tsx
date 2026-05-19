@@ -209,7 +209,7 @@ export function HeroContent() {
           transition={ctaTransition(1.02)}
         >
           <Link
-            href="/signup"
+            href="/dashboard"
             className={cn(
               'inline-flex items-center justify-center gap-2',
               'h-11 px-6 rounded-md',
@@ -225,7 +225,7 @@ export function HeroContent() {
               'hover:shadow-[0_0_32px_rgba(212,164,46,0.26)]',
             )}
           >
-            Ücretsiz başla
+            Demoyu aç
             <svg
               aria-hidden="true"
               width="14"

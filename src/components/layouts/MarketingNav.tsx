@@ -121,7 +121,7 @@ export function MarketingNav() {
         {/* Right-side actions */}
         <div className="flex items-center gap-3">
           <Link
-            href="/login"
+            href="/dashboard"
             className={cn(
               'type-body-sm font-medium',
               'text-[var(--color-fg-muted)]',
@@ -133,11 +133,11 @@ export function MarketingNav() {
               'rounded-sm px-1',
             )}
           >
-            Giriş yap
+            Demoyu gör
           </Link>
 
           <Link
-            href="/signup"
+            href="/dashboard"
             className={cn(
               'inline-flex items-center justify-center',
               'h-8 px-4 rounded-md',
@@ -151,7 +151,7 @@ export function MarketingNav() {
               'focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-canvas)]',
             )}
           >
-            Başla
+            Panele gir
           </Link>
         </div>
       </nav>
