@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM TOKENS
+   Full token set from DESIGN_SYSTEM.md
+   Dark mode is the canonical mode.
+───────────────────────────────────────────── */
+
+@theme {
+  /* ── Background planes (deep → near) ── */
+  --color-canvas:          #0C0C0E;
+  --color-surface:         #111114;
+  --color-surface-raised:  #18181C;
+  --color-surface-overlay: #1E1E24;
+  --color-surface-inset:   #0A0A0C;
+
+  /* ── Foreground / Text ── */
+  --color-fg:          #F0EFE9;
+  --color-fg-muted:    #9A9892;
+  --color-fg-subtle:   #5C5B57;
+  --color-fg-disabled: #3A3936;
+  --color-fg-inverse:  #0C0C0E;
+
+  /* ── Signature accent: muted amber-gold ── */
+  --color-accent-50:  #FFF8EC;
+  --color-accent-100: #FAEFD5;
+  --color-accent-200: #F0D99A;
+  --color-accent-300: #E4BF5A;
+  --color-accent-400: #D4A42E;
+  --color-accent-500: #B8891A;
+  --color-accent-600: #8F6912;
+
+  /* ── Semantic: positive (muted emerald) ── */
+  --color-positive-bg:       #0A1F14;
+  --color-positive-border:   #1A4230;
+  --color-positive:          #6DBF8A;
+  --color-positive-emphasis: #9ACFAC;
+
+  /* ── Semantic: negative (muted rose) ── */
+  --color-negative-bg:       #1F0A0E;
+  --color-negative-border:   #3D1520;
+  --color-negative:          #BF6D7A;
+  --color-negative-emphasis: #D4909A;
+
+  /* ── Semantic: warning (muted amber) ── */
+  --color-warning-bg:       #1C1505;
+  --color-warning-border:   #3D2E0E;
+  --color-warning:          #C9A84C;
+  --color-warning-emphasis: #E0C070;
+
+  /* ── Fonts ── */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'Cascadia Code', monospace;
+
+  /* ── Elevation shadows (neutral only — never colored) ── */
+  --shadow-elevation-1: 0 1px 2px rgba(0,0,0,0.40);
+  --shadow-elevation-2: 0 4px 12px rgba(0,0,0,0.50), 0 1px 3px rgba(0,0,0,0.30);
+  --shadow-elevation-3: 0 8px 32px rgba(0,0,0,0.60), 0 2px 8px rgba(0,0,0,0.40);
+  --shadow-elevation-4: 0 16px 48px rgba(0,0,0,0.70), 0 4px 16px rgba(0,0,0,0.50);
+
+  /* ── Motion easings (named, exported as CSS vars for JS access) ── */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-out-circ:    cubic-bezier(0, 0.55, 0.45, 1);
+
+  /* ── Motion durations ── */
+  --duration-micro:       80ms;
+  --duration-fast:        150ms;
+  --duration-standard:    250ms;
+  --duration-comfortable: 350ms;
+  --duration-deliberate:  500ms;
+  --duration-expressive:  700ms;
+
+  /* ── Keyframe animations ── */
+  --animate-shimmer:       shimmer 1.5s linear infinite;
+  --animate-scroll-bounce: scroll-bounce 2s ease-in-out infinite;
+  --animate-fade-in:       fade-in 0.3s var(--ease-out-circ) forwards;
+}
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────────── */
+
+@keyframes shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { opacity: 0.25; transform: translateY(0px); }
+  50%       { opacity: 0.70; transform: translateY(6px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────
+   TYPOGRAPHIC SCALE
+   Defined as @layer utilities so they compose
+   with Tailwind's responsive + modifier system.
+   Prefix: "type-" to avoid collisions.
+───────────────────────────────────────────── */
+
+@layer utilities {
+  /* Display — marketing & onboarding */
+  .type-display-2xl {
+    font-size: 4.5rem;     /* 72px */
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-weight: 300;
+  }
+  .type-display-xl {
+    font-size: 3.5rem;     /* 56px */
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+  }
+  .type-display-lg {
+    font-size: 2.75rem;    /* 44px */
+    line-height: 1.10;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+
+  /* Headlines — page titles, section headers */
+  .type-headline-xl {
+    font-size: 2rem;       /* 32px */
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  .type-headline-lg {
+    font-size: 1.5rem;     /* 24px */
+    line-height: 1.20;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  .type-headline-md {
+    font-size: 1.25rem;    /* 20px */
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  /* Body — content text */
+  .type-body-xl {
+    font-size: 1.125rem;   /* 18px */
+    line-height: 1.60;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+  }
+  .type-body-lg {
+    font-size: 1rem;       /* 16px */
+    line-height: 1.60;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .type-body-md {
+    font-size: 0.9375rem;  /* 15px */
+    line-height: 1.55;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .type-body-sm {
+    font-size: 0.875rem;   /* 14px */
+    line-height: 1.50;
+    letter-spacing: 0.005em;
+    font-weight: 400;
+  }
+
+  /* Captions & labels */
+  .type-caption {
+    font-size: 0.8125rem;  /* 13px */
+    line-height: 1.40;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+  }
+  .type-label-lg {
+    font-size: 0.8125rem;  /* 13px */
+    line-height: 1.00;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .type-label-sm {
+    font-size: 0.75rem;    /* 12px */
+    line-height: 1.00;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  /* Mono — fund codes, financial data */
+  .type-mono-md {
+    font-size: 0.875rem;
+    line-height: 1.50;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .type-mono-sm {
+    font-size: 0.8125rem;
+    line-height: 1.40;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Tabular numbers — for all financial figures */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 0%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   GLOBAL BASE STYLES
+───────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  transition: background var(--duration-fast);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.13); }
+
+/* ─── Focus ring — uses signature accent ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Text selection ─── */
+::selection {
+  background: rgba(212, 164, 46, 0.18);
+  color: var(--color-fg);
+}
