@@ -112,7 +112,7 @@ interface FundCardProps {
 }
 
 export function FundCard({ fund }: FundCardProps) {
-  const { code, name, company, category, returns, riskScore, managementFee, aum, trending, isNew } = fund
+  const { code, name, company, category, returns, riskScore, managementFee, aum, investorCount, trending, isNew } = fund
 
   return (
     <CinematicCard
@@ -213,6 +213,16 @@ export function FundCard({ fund }: FundCardProps) {
             <span className="type-label-sm text-[var(--color-fg-disabled)]">Büyüklük</span>
             <span className="type-label-sm font-medium text-[var(--color-fg-subtle)] tabular-nums">
               {fmtAum(aum)}
+            </span>
+          </div>
+          <div className="h-6 w-px bg-white/[0.05]" aria-hidden="true" />
+          <div className="flex flex-col items-end gap-0.5">
+            <span className="type-label-sm text-[var(--color-fg-disabled)]">Yatırımcı</span>
+            <span
+              className="type-label-sm font-medium text-[var(--color-fg-subtle)] tabular-nums"
+              suppressHydrationWarning
+            >
+              {new Intl.NumberFormat('tr-TR', { notation: 'compact', maximumFractionDigits: 1 }).format(investorCount)}
             </span>
           </div>
         </div>

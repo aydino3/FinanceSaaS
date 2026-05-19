@@ -34,6 +34,7 @@ export interface Fund {
   managementFee:  number       // Annual %, e.g. 1.50
   aum:            number       // AUM in TRY millions
   nav:            number       // Birim Pay Değeri (unit NAV)
+  investorCount:  number       // Total number of holders ("Yatırımcı Sayısı")
   inceptionDate:  string       // ISO date, e.g. "2015-03-12"
   trending?:      boolean      // Highlighted as trending
   isNew?:         boolean      // Launched < 6 months ago
