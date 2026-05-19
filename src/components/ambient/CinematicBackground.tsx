@@ -5,17 +5,14 @@
 // behind ALL content. Server Component — no JS.
 //
 // Layer stack (back → front):
-//   1. Deep canvas color   (body bg, already set)
-//   2. Two anchored radial washes (top-left amber,
-//      bottom-right cool slate) — establish a
-//      consistent light source
-//   3. SVG hairline grid at opacity 0.03 — gives
-//      the abyss perceptible scale
-//   4. Cursor-following soft amber halo, driven
-//      by --mouse-xp / --mouse-yp (from AmbientCursor)
-//   5. Vignette — pulls focus toward center
-//
-// All layers are pointer-events-none and fixed.
+//   1. Anchored radial washes — top-left amber +
+//      bottom-right cool slate (consistent light source)
+//   2. Dual SVG hairline grid — two slowly-drifting
+//      layers at 56px and 112px pitch, opacity 0.022
+//      and 0.014. Animated via CSS keyframes so no JS.
+//   3. Cursor-following amber halo (consumes
+//      --mouse-xp / --mouse-yp from AmbientCursor)
+//   4. Top specular sweep + center vignette
 // ─────────────────────────────────────────────
 
 export function CinematicBackground() {
@@ -35,50 +32,70 @@ export function CinematicBackground() {
         }}
       />
 
-      {/* ── SVG hairline grid ── */}
-      <svg
-        className="absolute inset-0 h-full w-full opacity-[0.035]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            id="cinematic-grid"
-            width="56"
-            height="56"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 56 0 L 0 0 0 56"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              className="text-[var(--color-fg)]"
-            />
-          </pattern>
-          {/* Mask fades the grid out at the edges */}
-          <radialGradient id="cinematic-grid-mask" cx="50%" cy="40%" r="65%">
-            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
-            <stop offset="70%" stopColor="#fff" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-          </radialGradient>
-          <mask id="cinematic-grid-mask-layer">
-            <rect width="100%" height="100%" fill="url(#cinematic-grid-mask)" />
-          </mask>
-        </defs>
-        <rect
-          width="100%"
-          height="100%"
-          fill="url(#cinematic-grid)"
-          mask="url(#cinematic-grid-mask-layer)"
-        />
-      </svg>
+      {/* ── Primary drifting grid (56px tile, 60s loop) ── */}
+      <div
+        className="absolute -inset-x-32 -inset-y-32 opacity-[0.022] motion-reduce:hidden"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, var(--color-fg) 1px, transparent 1px), ' +
+            'linear-gradient(to bottom, var(--color-fg) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          animation: 'grid-drift 60s linear infinite',
+          willChange: 'transform',
+          maskImage:
+            'radial-gradient(ellipse 60% 50% at 50% 40%, #000 50%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 60% 50% at 50% 40%, #000 50%, transparent 100%)',
+        }}
+      />
 
-      {/* ── Cursor-following amber halo (consumes --mouse-xp/yp) ── */}
+      {/* ── Secondary larger grid (112px tile, 80s counter-drift) — adds parallax depth ── */}
+      <div
+        className="absolute -inset-x-32 -inset-y-32 opacity-[0.014] motion-reduce:hidden"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, var(--color-fg) 1px, transparent 1px), ' +
+            'linear-gradient(to bottom, var(--color-fg) 1px, transparent 1px)',
+          backgroundSize: '112px 112px',
+          animation: 'grid-drift-counter 80s linear infinite',
+          willChange: 'transform',
+          maskImage:
+            'radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%)',
+        }}
+      />
+
+      {/* ── Static grid fallback for reduced-motion users (no animation) ── */}
+      <div
+        className="absolute inset-0 opacity-[0.022] hidden motion-reduce:block"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, var(--color-fg) 1px, transparent 1px), ' +
+            'linear-gradient(to bottom, var(--color-fg) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage:
+            'radial-gradient(ellipse 60% 50% at 50% 40%, #000 50%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 60% 50% at 50% 40%, #000 50%, transparent 100%)',
+        }}
+      />
+
+      {/* ── Cursor-following amber halo ── */}
       <div
         className="absolute inset-0 transition-opacity duration-700"
         style={{
           background:
             'radial-gradient(circle 600px at var(--mouse-xp, 50%) var(--mouse-yp, 30%), rgba(212,164,46,0.06), transparent 60%)',
+        }}
+      />
+
+      {/* ── Secondary cool halo — counter-tone, smaller, tracks too ── */}
+      <div
+        className="absolute inset-0 transition-opacity duration-700 mix-blend-screen"
+        style={{
+          background:
+            'radial-gradient(circle 320px at var(--mouse-xp, 50%) var(--mouse-yp, 50%), rgba(120,160,200,0.03), transparent 65%)',
         }}
       />
 

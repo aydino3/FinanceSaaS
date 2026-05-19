@@ -102,11 +102,14 @@ export function CinematicCard({
       className={cn(
         'group/cinematic relative overflow-hidden rounded-xl',
         'border border-white/[0.06]',
-        'bg-[rgba(17,17,20,0.62)] backdrop-blur-md backdrop-saturate-[1.4]',
+        // Deeper velvet — darker base with backdrop saturation so the
+        // ambient washes behind tint through subtly
+        'bg-[rgba(14,14,17,0.66)] backdrop-blur-md backdrop-saturate-[1.5]',
         'transition-[border-color,box-shadow,transform] duration-500',
         '[transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
-        'hover:border-white/[0.10]',
-        'hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.65),0_8px_24px_-8px_rgba(0,0,0,0.45)]',
+        // Hover: thin inner ring + double-stacked drop shadow (Linear card recipe)
+        'hover:border-white/[0.11]',
+        'hover:shadow-[0_0_0_1px_rgba(212,164,46,0.06),0_24px_60px_-20px_rgba(0,0,0,0.7),0_8px_24px_-8px_rgba(0,0,0,0.5)]',
         onClick && 'cursor-pointer',
         className
       )}
@@ -155,8 +158,32 @@ export function CinematicCard({
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 z-0 h-24
-                   bg-gradient-to-b from-white/[0.025] to-transparent"
+                   bg-gradient-to-b from-white/[0.03] to-transparent"
       />
+
+      {/* Bottom velvet falloff — pulls weight downward, makes the card feel
+          like it sits on a surface rather than floating uncomfortably */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32
+                   bg-gradient-to-t from-black/[0.25] to-transparent"
+      />
+
+      {/* Hover-only outer halo — appears at the very edge as cursor enters,
+          fades back out on leave. Uses the same --glow-opacity variable. */}
+      {!noGlow && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-px z-0 rounded-xl"
+          style={{
+            background:
+              'radial-gradient(circle 180px at var(--glow-x, 50%) var(--glow-y, 50%), rgba(212,164,46,0.10), transparent 70%)',
+            opacity: 'calc(var(--glow-opacity, 0) * 0.6)',
+            transition: 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1)',
+            mixBlendMode: 'screen',
+          }}
+        />
+      )}
 
       {/* Content sits above all glow layers */}
       <div className="relative z-10">{children}</div>
