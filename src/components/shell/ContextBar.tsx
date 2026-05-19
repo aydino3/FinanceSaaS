@@ -48,7 +48,8 @@ export function ContextBar() {
     <header
       aria-label="Bağlam çubuğu"
       className="hidden lg:flex h-10 shrink-0 items-center justify-between
-                 gap-4 border-b border-white/[0.05] bg-[var(--color-canvas)]
+                 gap-4 border-b border-white/[0.05]
+                 bg-[rgba(12,12,14,0.55)] backdrop-blur-xl backdrop-saturate-150
                  px-4"
     >
       {/* Left: breadcrumb placeholder */}

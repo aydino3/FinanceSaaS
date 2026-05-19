@@ -44,6 +44,13 @@ export const springs = {
   soft: { type: 'spring', stiffness: 200, damping: 28, mass: 1 } as const,
   /** Snappy spring — direct manipulation responses */
   snappy: { type: 'spring', stiffness: 400, damping: 40, mass: 1 } as const,
+  /**
+   * Heavy spring — flagship "expensive" feel for filter chips,
+   * tab pills, and layoutId pill morphs. Higher mass, lower
+   * stiffness makes the motion feel mechanical and weighted,
+   * never bouncy. Damping kept high to land cleanly.
+   */
+  cinematic: { type: 'spring', stiffness: 260, damping: 34, mass: 1.2 } as const,
 } as const
 
 // ─────────────────────────────────────────────

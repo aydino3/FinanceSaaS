@@ -100,12 +100,13 @@ export function CinematicCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative overflow-hidden rounded-xl',
-        'border border-white/[0.07]',
-        'bg-[var(--color-surface)]',
-        'transition-[border-color,box-shadow] duration-300',
-        'hover:border-white/[0.12]',
-        'hover:shadow-[0_8px_32px_rgba(0,0,0,0.45)]',
+        'group/cinematic relative overflow-hidden rounded-xl',
+        'border border-white/[0.06]',
+        'bg-[rgba(17,17,20,0.62)] backdrop-blur-md backdrop-saturate-[1.4]',
+        'transition-[border-color,box-shadow,transform] duration-500',
+        '[transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+        'hover:border-white/[0.10]',
+        'hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.65),0_8px_24px_-8px_rgba(0,0,0,0.45)]',
         onClick && 'cursor-pointer',
         className
       )}
@@ -132,11 +133,29 @@ export function CinematicCard({
         />
       )}
 
+      {/* Global cursor halo — extremely subtle, follows page cursor */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-40
+                   transition-opacity duration-700"
+        style={{
+          background:
+            'radial-gradient(circle 320px at var(--mouse-xp, 50%) var(--mouse-yp, 50%), rgba(255,255,255,0.035), transparent 65%)',
+        }}
+      />
+
       {/* Top-edge specular line */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 z-0 h-px
-                   bg-gradient-to-r from-transparent via-white/[0.07] to-transparent"
+                   bg-gradient-to-r from-transparent via-white/[0.08] to-transparent"
+      />
+
+      {/* Inner top highlight — gives glass perceived thickness */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-24
+                   bg-gradient-to-b from-white/[0.025] to-transparent"
       />
 
       {/* Content sits above all glow layers */}

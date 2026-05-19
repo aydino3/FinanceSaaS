@@ -45,11 +45,11 @@ export default function LandingPage() {
         <p className="type-caption text-[var(--color-fg-disabled)]">
           Diğer bölümler yakında —
           <a
-            href="/signup"
+            href="/dashboard"
             className="ml-1 text-[var(--color-accent-400)] underline-offset-2
                        hover:underline transition-all"
           >
-            şimdi başla
+            demoyu aç
           </a>
         </p>
       </div>

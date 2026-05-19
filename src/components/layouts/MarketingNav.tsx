@@ -97,7 +97,7 @@ export function MarketingNav() {
         'transition-all',
         'duration-[var(--duration-comfortable)]',
         scrolled
-          ? 'bg-[var(--color-canvas)]/80 backdrop-blur-md border-b border-white/[0.06]'
+          ? 'bg-[rgba(12,12,14,0.55)] backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.06] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)]'
           : 'bg-transparent',
       )}
     >
@@ -121,7 +121,7 @@ export function MarketingNav() {
         {/* Right-side actions */}
         <div className="flex items-center gap-3">
           <Link
-            href="/login"
+            href="/dashboard"
             className={cn(
               'type-body-sm font-medium',
               'text-[var(--color-fg-muted)]',
@@ -133,11 +133,11 @@ export function MarketingNav() {
               'rounded-sm px-1',
             )}
           >
-            Giriş yap
+            Demoyu gör
           </Link>
 
           <Link
-            href="/signup"
+            href="/dashboard"
             className={cn(
               'inline-flex items-center justify-center',
               'h-8 px-4 rounded-md',
@@ -151,7 +151,7 @@ export function MarketingNav() {
               'focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-canvas)]',
             )}
           >
-            Başla
+            Panele gir
           </Link>
         </div>
       </nav>

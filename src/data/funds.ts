@@ -24,6 +24,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.11,
     aum: 28_420,
     nav: 4.8831,
+    investorCount: 1_816_000,
     inceptionDate: '2012-04-02',
   },
   {
@@ -37,6 +38,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.09,
     aum: 34_180,
     nav: 3.2217,
+    investorCount: 1_794_000,
     inceptionDate: '2010-09-14',
   },
   {
@@ -50,6 +52,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.14,
     aum: 22_750,
     nav: 2.7640,
+    investorCount: 1_340_000,
     inceptionDate: '2013-06-20',
   },
   {
@@ -63,6 +66,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.16,
     aum: 8_340,
     nav: 1.9908,
+    investorCount: 463_000,
     inceptionDate: '2016-02-08',
   },
 
@@ -78,6 +82,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.28,
     aum: 5_620,
     nav: 6.3301,
+    investorCount: 207_000,
     inceptionDate: '2014-11-03',
   },
   {
@@ -91,6 +96,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.32,
     aum: 3_180,
     nav: 4.1024,
+    investorCount: 109_000,
     inceptionDate: '2015-07-22',
   },
   {
@@ -104,6 +110,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.19,
     aum: 18_900,
     nav: 5.8843,
+    investorCount: 653_000,
     inceptionDate: '2011-03-15',
   },
   {
@@ -117,6 +124,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.38,
     aum: 2_240,
     nav: 3.4501,
+    investorCount: 62_600,
     inceptionDate: '2017-09-11',
   },
 
@@ -132,6 +140,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.38,
     aum: 4_920,
     nav: 8.2218,
+    investorCount: 63_000,
     inceptionDate: '2016-05-18',
     trending: true,
   },
@@ -146,6 +155,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.42,
     aum: 6_840,
     nav: 5.6032,
+    investorCount: 78_900,
     inceptionDate: '2014-08-25',
   },
   {
@@ -159,6 +169,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.35,
     aum: 7_210,
     nav: 6.1145,
+    investorCount: 82_600,
     inceptionDate: '2013-11-06',
   },
   {
@@ -172,6 +183,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.48,
     aum: 3_560,
     nav: 4.9877,
+    investorCount: 38_300,
     inceptionDate: '2018-02-14',
   },
 
@@ -187,6 +199,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.34,
     aum: 24_680,
     nav: 3.1840,
+    investorCount: 1_163_000,
     inceptionDate: '2011-06-07',
     trending: true,
   },
@@ -201,6 +214,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.41,
     aum: 11_340,
     nav: 2.8223,
+    investorCount: 458_000,
     inceptionDate: '2013-04-19',
   },
   {
@@ -214,6 +228,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.38,
     aum: 9_820,
     nav: 3.5614,
+    investorCount: 351_000,
     inceptionDate: '2015-09-01',
   },
   {
@@ -227,6 +242,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.55,
     aum: 4_120,
     nav: 2.2018,
+    investorCount: 143_000,
     inceptionDate: '2019-01-28',
     isNew: false,
   },
@@ -243,6 +259,7 @@ export const FUNDS: Fund[] = [
     managementFee: 1.68,
     aum: 3_240,
     nav: 7.4431,
+    investorCount: 76_100,
     inceptionDate: '2016-10-03',
     trending: true,
   },
@@ -257,6 +274,7 @@ export const FUNDS: Fund[] = [
     managementFee: 1.45,
     aum: 1_820,
     nav: 5.2208,
+    investorCount: 49_100,
     inceptionDate: '2018-03-22',
   },
   {
@@ -270,6 +288,7 @@ export const FUNDS: Fund[] = [
     managementFee: 1.82,
     aum: 2_680,
     nav: 9.8840,
+    investorCount: 54_000,
     inceptionDate: '2017-07-10',
     trending: true,
   },
@@ -284,6 +303,7 @@ export const FUNDS: Fund[] = [
     managementFee: 1.36,
     aum: 4_560,
     nav: 4.1203,
+    investorCount: 118_000,
     inceptionDate: '2014-05-06',
   },
 
@@ -299,6 +319,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.62,
     aum: 1_640,
     nav: 3.8820,
+    investorCount: 50_400,
     inceptionDate: '2019-08-15',
     isNew: false,
   },
@@ -313,6 +334,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.58,
     aum: 2_180,
     nav: 2.9941,
+    investorCount: 82_600,
     inceptionDate: '2017-12-04',
   },
   {
@@ -326,6 +348,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.74,
     aum: 980,
     nav: 5.1140,
+    investorCount: 32_000,
     inceptionDate: '2020-03-09',
     isNew: false,
   },
@@ -340,6 +363,7 @@ export const FUNDS: Fund[] = [
     managementFee: 0.66,
     aum: 740,
     nav: 3.4428,
+    investorCount: 26_900,
     inceptionDate: '2021-06-21',
     isNew: false,
   },

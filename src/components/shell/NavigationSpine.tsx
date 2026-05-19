@@ -231,7 +231,7 @@ export function NavigationSpine() {
       }
       className="relative hidden lg:flex h-full shrink-0 flex-col
                  border-r border-white/[0.05]
-                 bg-[var(--color-canvas)]"
+                 bg-[rgba(10,10,12,0.55)] backdrop-blur-xl backdrop-saturate-150"
       style={{ overflow: 'hidden' }}
     >
       {/* Logo mark */}
