@@ -66,7 +66,7 @@ const primaryNav: NavItem[] = [
   {
     id: 'brief',
     label: 'AI Brief',
-    href: '/dashboard/brief',
+    href: '/dashboard/insights',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.6 3.6l1.4 1.4M13 13l1.4 1.4M3.6 14.4l1.4-1.4M13 5l1.4-1.4" />

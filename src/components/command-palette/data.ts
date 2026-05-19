@@ -60,7 +60,7 @@ export const COMMAND_ITEMS: CommandItem[] = [
     label: 'AI Brief',
     description: 'Günlük yapay zeka yatırım özeti',
     keywords: ['ai', 'brief', 'yapay zeka', 'özet', 'insight'],
-    href: '/dashboard/brief',
+    href: '/dashboard/insights',
     icon: 'sparkle',
     group: 'Sayfalar',
   },
