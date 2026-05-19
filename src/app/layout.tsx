@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import { AmbientCursor } from '@/components/ambient/AmbientCursor'
+import { CinematicBackground } from '@/components/ambient/CinematicBackground'
 import './globals.css'
 
 const inter = Inter({
@@ -52,6 +54,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full antialiased">
+        <CinematicBackground />
+        <AmbientCursor />
         {children}
       </body>
     </html>

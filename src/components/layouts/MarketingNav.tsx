@@ -97,7 +97,7 @@ export function MarketingNav() {
         'transition-all',
         'duration-[var(--duration-comfortable)]',
         scrolled
-          ? 'bg-[var(--color-canvas)]/80 backdrop-blur-md border-b border-white/[0.06]'
+          ? 'bg-[rgba(12,12,14,0.55)] backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.06] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)]'
           : 'bg-transparent',
       )}
     >

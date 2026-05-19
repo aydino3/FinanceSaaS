@@ -54,7 +54,7 @@ export function AppShell({ children }: AppShellProps) {
   }, [toggleCommandPalette])
 
   return (
-    <div className="flex h-dvh w-full overflow-hidden bg-[var(--color-canvas)]">
+    <div className="flex h-dvh w-full overflow-hidden bg-transparent">
       {/* Desktop sidebar — suppress until mounted to avoid hydration mismatch on pinned state */}
       {mounted && <NavigationSpine />}
 
