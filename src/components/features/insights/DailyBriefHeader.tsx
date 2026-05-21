@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'
+import { MOCK_USER } from '@/stores/session'
 import type { DailyBriefSummary } from '@/types/insights'
 
 // ─────────────────────────────────────────────
@@ -90,7 +91,9 @@ export function DailyBriefHeader({ brief }: DailyBriefHeaderProps) {
             className="text-[var(--color-fg)] font-light"
             style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}
           >
-            {greeting} —{' '}
+            {greeting},{' '}
+            <span className="text-[var(--color-accent-300)]">{MOCK_USER.firstName} Bey</span>
+            {' '}—{' '}
             <span className="text-[var(--color-fg-muted)]">{formattedDate}</span>
           </h1>
         </div>

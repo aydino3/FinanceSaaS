@@ -417,17 +417,19 @@ export function NavigationSpine() {
         </button>
       </div>
 
-      {/* ── User avatar ── */}
+      {/* ── User identity ── */}
       <div className="border-t border-white/[0.05] px-1.5 py-2">
-        <div
-          className={cn(
-            'relative flex h-10 w-full items-center gap-3 rounded-lg px-3',
-          )}
-        >
+        <div className="relative flex h-auto w-full items-center gap-3 rounded-lg px-3 py-2">
+          {/* Avatar — amber monogram with subtle glow ring */}
           <span
-            className="relative flex h-6 w-6 shrink-0 items-center justify-center
-                       rounded-full text-[10px] font-semibold"
-            style={{ background: 'rgba(212,164,46,0.15)', color: 'var(--color-accent-400)' }}
+            className="relative flex h-7 w-7 shrink-0 items-center justify-center
+                       rounded-full text-[10px] font-bold tracking-wider ring-1"
+            style={{
+              background: 'rgba(212,164,46,0.14)',
+              color: 'var(--color-accent-400)',
+              boxShadow: '0 0 0 1px rgba(212,164,46,0.22)',
+            }}
+            aria-hidden="true"
           >
             {MOCK_USER.initials}
           </span>
@@ -442,12 +444,24 @@ export function NavigationSpine() {
                 transition={{ duration: prefersReduced ? 0 : durations.fast, ease: easings.easeOutExpo }}
                 className="relative min-w-0 flex-1 text-left"
               >
-                <p className="type-body-sm font-medium text-[var(--color-fg)] truncate">
-                  {MOCK_USER.firstName}
+                {/* Full name */}
+                <p className="type-body-sm font-medium text-[var(--color-fg)] truncate leading-snug">
+                  {MOCK_USER.fullName}
                 </p>
-                <p className="type-label-sm text-[var(--color-accent-400)] truncate">
-                  {MOCK_USER.tierLabel}
-                </p>
+                {/* Tier badge row */}
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span
+                    className="inline-block h-1 w-1 rounded-full"
+                    style={{
+                      background: 'var(--color-accent-400)',
+                      boxShadow: '0 0 4px rgba(212,164,46,0.7)',
+                    }}
+                    aria-hidden="true"
+                  />
+                  <p className="type-label-sm text-[var(--color-accent-400)] truncate">
+                    {MOCK_USER.tierLabel}
+                  </p>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
