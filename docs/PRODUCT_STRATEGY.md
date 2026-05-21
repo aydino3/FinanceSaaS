@@ -45,44 +45,66 @@ Concretely:
 
 ## 2. Target User Personas
 
-### Persona 1 — The Disciplined Accumulator
-**"Ayşe, 34, Software Engineer, Istanbul"**
+### Persona 1 — The Inflation-Aware Wealth Builder
+**"Haluk Sönmez, 52, Director of Industrial Operations, İstanbul"**
 
-- Saves 20–30% of her salary monthly; invests through TEFAS and a brokerage
-- Financially literate but not a professional trader — she understands concepts, not formulas
-- Primary anxiety: *"Am I actually building wealth, or just keeping up with inflation?"*
-- Current behavior: checks her brokerage app weekly, exports TEFAS data to Excel quarterly,
-  follows 3–4 finance Twitter/X accounts
-- What she wants: one clear answer — *"Your real net worth grew X% this quarter. Here's why,
-  and here's what to consider next."*
-- Design implication: she values **precision and brevity**. She has 4 minutes, not 40.
+**Portfolio profile:**
+- Managed wealth: ₺4.2M–₺8.5M, distributed across TEFAS mutual funds, physical gram altın, USD time deposits, and BIST blue-chip equity
+- TEFAS allocation: ~₺2.8M active fund portfolio across 8–12 positions, rebalanced quarterly using a strategic asset allocation (SAA) framework
+- Risk profile: SPKA 3–4 — moderate-conservative; absolute-return mindset with explicit TÜFE hurdle rate
 
-### Persona 2 — The Inflation-Aware Preserver
-**"Mehmet, 51, Business Owner, Ankara"**
+**Investment thesis:**
+Every position in the portfolio must clear the rolling 12-month TÜFE hurdle before it earns or retains an allocation. Nominal return figures are considered misleading without context; the only meaningful metric is the purchasing-power-adjusted real return relative to the risk taken. Capital preservation in real terms is the primary mandate — alpha generation is secondary.
 
-- Has accumulated meaningful wealth (₺2M–₺10M range) across TRY deposits, gold, USD savings,
-  and real estate
-- Watched previous savings cycles erode; deeply distrustful of TRY-denominated instruments
-- Primary anxiety: *"How do I protect what I've built? Which fund actually beats inflation consistently?"*
-- Current behavior: relies on a bank relationship manager or a single trusted advisor; slow to
-  adopt new digital tools without trust signals
-- What he wants: **institutional-grade analysis in a human interface** — not a toy app
-- Design implication: the platform must feel **credible and serious** from the first second.
-  Premium aesthetics are not decoration — they are trust infrastructure.
+**Pain points in the current landscape:**
+- No available tool unifies TEFAS positions, physical gold, and FX deposits under a single real-purchasing-power ledger
+- Monthly reconciliation requires 2–3 hours of manual spreadsheet maintenance; CPI adjustment formulas are built and maintained personally
+- TEFAS's own portal and bank apps present nominal NAVs and nominal returns with no inflation context — making informed rebalancing decisions operationally painful
+- Identifying which funds within a category have *consistently* beaten TÜFE on a rolling 3-month basis requires custom scripting against TEFAS raw data exports
 
-### Persona 3 — The Sophisticated Optimizer
-**"Deniz, 28, Finance Professional, Istanbul"**
+**Key metrics this persona tracks manually:**
+- 18-month rolling real return per position
+- Cumulative purchasing-power ratio (current NAV / (cost basis × CPI factor))
+- Intra-category TÜFE outperformance spread
+- Portfolio-level TÜFE-adjusted Sharpe estimate
 
-- Works in asset management or investment banking; invests personally with deep domain knowledge
-- Uses Bloomberg, Reuters, and multiple brokerage terminals professionally
-- Primary frustration: *"Every consumer app is built for people who don't know what they're doing.
-  I need depth without clutter."*
-- Current behavior: builds personal models in Excel/Python; considers current retail tools beneath
-  their workflow
-- What they want: **power-user density with zero UI compromise** — raw data accessible, but not
-  defaulting to it
-- Design implication: progressive disclosure is critical. The surface is calm; depth is one
-  deliberate tap away.
+**What the platform unlocks:**
+The Inflation tab becomes this investor's primary workspace — the CashErosionChart immediately validates the strategic premise ("this is what happens to cash"), and the WealthStatus hero gives them the portfolio-vs-CPI verdict they used to calculate manually. The BenchmarkGrid surfaces BIST 100, USD/TRY, and TÜFE comparisons in a single view. The AI Brief translates macro events (TCMB rate decisions, TÜİK CPI prints) directly into portfolio-level implications — the analytical layer they currently have to build themselves.
+
+**Design implication:**
+This persona rewards density and precision. Information should be layered — the top-line real-return verdict is the entry point, with progressive disclosure into per-fund and per-category decomposition. The interface must communicate institutional credibility from the first interaction.
+
+---
+
+### Persona 2 — The Active Fund Allocator
+**"Ziya Tural, 37, Senior Portfolio Analyst, Asset Management Sector, İstanbul"**
+
+**Portfolio profile:**
+- Managed wealth: ₺1.5M–₺3M personal TEFAS portfolio, active rotation strategy
+- Current allocation: Equity-overweight (SPKA 5–6 range) during risk-on macroeconomic regimes; systematic rotation into Eurobond and gold fund categories on TCMB policy pivot signals
+- Rebalancing frequency: Monthly tactical, driven by TCMB meeting calendar and TÜİK CPI print schedule
+
+**Investment thesis:**
+TEFAS's 500+ fund universe contains substantial dispersion in risk-adjusted, inflation-corrected alpha — but locating it requires filtering capabilities that the official platform and all consumer apps lack. The real edge is in identifying fund managers who consistently outperform their TEFAS category benchmark on a fee-adjusted, real-return basis — not just on raw 1Y nominal returns, which are trivially distorted by late-2024 base effects. Eurobond funds add a USD/TRY hedge layer that gold funds partially replicate at lower volatility; the allocation between them is a macro call, not a set-and-forget decision.
+
+**Pain points in the current landscape:**
+- TEFAS's official screener allows filtering by category but has no risk-adjusted or inflation-adjusted sort — the entire filter mechanism defaults to nominal 1Y return, making it nearly useless for informed fund selection
+- Discovering that a high-performing fund has quietly changed its senior manager requires monitoring TEFAS disclosure PDFs manually
+- There is no tool that computes information ratio vs. a category benchmark for individual TEFAS funds
+- Comparing an equity fund's real return against an equivalent Eurobond position requires building a cross-category model from scratch
+
+**Key metrics this persona tracks:**
+- Real 1Y return ranked within TEFAS category (not against all funds)
+- Fee-adjusted alpha: (1Y return − category avg return) / management fee ratio
+- Risk-adjusted return: return per unit of SPKA risk score
+- AUM trend as a proxy for institutional capital flow conviction
+- Investor count trend: rising yatırımcı count as a momentum signal
+
+**What the platform unlocks:**
+The Explorer tab is this persona's primary surface — the ability to sort 24+ funds by real return, risk score, or fee instantly, and filter to a specific category (Eurobond, Hisse Senedi) where the analytical decision is being made. The FilterBar's real-return sort (`return-real`) is the core action: it re-ranks the fund universe by the metric that actually matters. The AI Brief's fund-specific alerts (manager changes, category momentum signals) surface the early-warning intelligence this persona currently gets only from Bloomberg terminal subscriptions.
+
+**Design implication:**
+This persona demands explorer-grade density and responsiveness. Filter state must persist across tab switches. Sort changes should feel instant with smooth FLIP reordering animations. The "Reel" accent column in every fund card is the single most important data point on the page — it should always be visually differentiated from nominal return columns.
 
 ---
 
