@@ -10,7 +10,7 @@ export interface InsightMetric {
 
 export interface InsightAction {
   label: string
-  href: string
+  tabTarget: 'portfolio' | 'explorer' | 'inflation' | 'insights'
 }
 
 export interface AIInsight {
