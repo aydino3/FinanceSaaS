@@ -1,17 +1,31 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'
-import { useShellStore } from '@/stores/shell'
+import { useShellStore, type TabId } from '@/stores/shell'
 
-const MORE_ITEMS = [
+// ─────────────────────────────────────────────
+// MOBILE BOTTOM SHEET
+//
+// Slide-up sheet that exposes overflow navigation.
+// Items with a `tabId` switch the active panel;
+// items without are dimmed "coming soon" stubs.
+// ─────────────────────────────────────────────
+
+interface SheetItem {
+  id:     string
+  label:  string
+  tabId?: TabId
+  icon:   React.ReactNode
+}
+
+const SHEET_ITEMS: SheetItem[] = [
   {
-    id: 'analytics',
+    id: 'inflation',
     label: 'Analitik',
-    href: '/dashboard/analytics',
+    tabId: 'inflation',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 16 7.5 9l4 4 4-7.5 3.5 1" />
@@ -19,9 +33,19 @@ const MORE_ITEMS = [
     ),
   },
   {
+    id: 'insights',
+    label: 'AI Brief',
+    tabId: 'insights',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.1 4.1l1.4 1.4M14.5 14.5l1.4 1.4M4.1 15.9l1.4-1.4M14.5 5.5l1.4-1.4" />
+        <circle cx="10" cy="10" r="3" />
+      </svg>
+    ),
+  },
+  {
     id: 'macro',
     label: 'Makro',
-    href: '/dashboard/macro',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="10" cy="10" r="8" />
@@ -32,7 +56,6 @@ const MORE_ITEMS = [
   {
     id: 'watchlist',
     label: 'İzleme',
-    href: '/dashboard/watchlist',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2h8a1 1 0 0 1 1 1v15l-5-3-5 3V3a1 1 0 0 1 1-1z" />
@@ -42,7 +65,6 @@ const MORE_ITEMS = [
   {
     id: 'journal',
     label: 'Defter',
-    href: '/dashboard/journal',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15.5 3.5a2.5 2.5 0 0 1 3.5 3.5L7 19H3v-4L15.5 3.5z" />
@@ -52,7 +74,6 @@ const MORE_ITEMS = [
   {
     id: 'settings',
     label: 'Ayarlar',
-    href: '/dashboard/settings',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="10" cy="10" r="3" />
@@ -63,11 +84,10 @@ const MORE_ITEMS = [
 ]
 
 export function MobileBottomSheet() {
-  const { mobileMoreOpen, setMobileMoreOpen } = useShellStore()
+  const { mobileMoreOpen, setMobileMoreOpen, setActiveTab } = useShellStore()
   const prefersReduced = useReducedMotion() ?? false
   const sheetRef = useRef<HTMLDivElement>(null)
 
-  // Close on outside click
   useEffect(() => {
     if (!mobileMoreOpen) return
     const handleClick = (e: MouseEvent) => {
@@ -79,7 +99,6 @@ export function MobileBottomSheet() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [mobileMoreOpen, setMobileMoreOpen])
 
-  // Close on escape
   useEffect(() => {
     if (!mobileMoreOpen) return
     const handleKey = (e: KeyboardEvent) => {
@@ -89,11 +108,16 @@ export function MobileBottomSheet() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [mobileMoreOpen, setMobileMoreOpen])
 
+  const handleItemClick = (item: SheetItem) => {
+    if (!item.tabId) return
+    setActiveTab(item.tabId)
+    setMobileMoreOpen(false)
+  }
+
   return (
     <AnimatePresence>
       {mobileMoreOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             key="sheet-backdrop"
             initial={{ opacity: 0 }}
@@ -105,7 +129,6 @@ export function MobileBottomSheet() {
             onClick={() => setMobileMoreOpen(false)}
           />
 
-          {/* Sheet */}
           <motion.div
             key="sheet-panel"
             ref={sheetRef}
@@ -130,33 +153,41 @@ export function MobileBottomSheet() {
                        bg-[rgba(18,18,22,0.96)] pb-safe"
             style={{ backdropFilter: 'blur(20px) saturate(120%)' }}
           >
-            {/* Drag handle */}
             <div className="flex justify-center pt-3 pb-2" aria-hidden="true">
               <div className="h-1 w-10 rounded-full bg-white/[0.15]" />
             </div>
 
-            {/* Items grid */}
             <div className="grid grid-cols-3 gap-2 p-4 pb-6">
-              {MORE_ITEMS.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  onClick={() => setMobileMoreOpen(false)}
-                  className={cn(
-                    'flex flex-col items-center gap-2 rounded-xl p-3',
-                    'border border-white/[0.07] bg-white/[0.04]',
-                    'text-[var(--color-fg-subtle)]',
-                    'transition-colors duration-[var(--duration-micro)]',
-                    'hover:bg-white/[0.07] hover:text-[var(--color-fg-muted)]',
-                    'active:bg-white/[0.10]',
-                    'focus-visible:outline-none focus-visible:ring-2',
-                    'focus-visible:ring-[var(--color-accent-400)]',
-                  )}
-                >
-                  {item.icon}
-                  <span className="type-label-sm">{item.label}</span>
-                </Link>
-              ))}
+              {SHEET_ITEMS.map((item) => {
+                const active = Boolean(item.tabId)
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleItemClick(item)}
+                    disabled={!active}
+                    aria-label={active ? item.label : `${item.label} — yakında`}
+                    className={cn(
+                      'flex flex-col items-center gap-2 rounded-xl p-3',
+                      'border border-white/[0.07] bg-white/[0.04]',
+                      'transition-colors duration-[var(--duration-micro)]',
+                      'focus-visible:outline-none focus-visible:ring-2',
+                      'focus-visible:ring-[var(--color-accent-400)]',
+                      active
+                        ? 'text-[var(--color-fg-subtle)] hover:bg-white/[0.07] hover:text-[var(--color-fg-muted)] active:bg-white/[0.10] cursor-pointer'
+                        : 'text-[var(--color-fg-disabled)] opacity-35 cursor-not-allowed'
+                    )}
+                  >
+                    {item.icon}
+                    <span className="type-label-sm">{item.label}</span>
+                    {!active && (
+                      <span className="type-label-sm text-[var(--color-fg-disabled)] -mt-1">
+                        yakında
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
             </div>
           </motion.div>
         </>

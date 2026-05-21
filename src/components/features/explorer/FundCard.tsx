@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { CinematicCard } from '@/components/ui/CinematicCard'
+import { MetricCounter } from '@/components/ui/MetricCounter'
 import { cn } from '@/lib/utils'
 import type { Fund, FundCategory } from '@/types/fund'
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/types/fund'
@@ -90,15 +90,16 @@ function ReturnCell({
       >
         {label}
       </span>
-      <span
+      <MetricCounter
+        value={value}
+        formatter={fmt}
+        mountDuration={1.2}
         className={cn(
           'relative tabular-nums font-medium',
           accent ? 'type-body-sm text-[var(--color-accent-400)]' : 'type-label-sm',
           !accent && returnColor(value)
         )}
-      >
-        {fmt(value)}
-      </span>
+      />
     </div>
   )
 }
@@ -228,16 +229,6 @@ export function FundCard({ fund }: FundCardProps) {
         </div>
       </div>
 
-      {/* ── View CTA overlay ── */}
-      <Link
-        href={`/dashboard/explorer/${code}`}
-        className="absolute inset-0 z-20 rounded-xl
-                   focus-visible:outline-none focus-visible:ring-2
-                   focus-visible:ring-[var(--color-accent-400)]
-                   focus-visible:ring-inset"
-        aria-label={`${name} detaylarını gör`}
-        tabIndex={0}
-      />
     </CinematicCard>
   )
 }

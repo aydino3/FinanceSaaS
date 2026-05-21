@@ -97,6 +97,18 @@
   to   { opacity: 1; }
 }
 
+/* Cinematic grid drift — 60s loop, translates by exactly one tile so the
+   pattern wraps seamlessly. Pauses for reduced-motion users. */
+@keyframes grid-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(56px, 56px, 0); }
+}
+
+@keyframes grid-drift-counter {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-112px, 0, 0); }
+}
+
 /* ─────────────────────────────────────────────
    TYPOGRAPHIC SCALE
    Defined as @layer utilities so they compose

@@ -1,10 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CinematicCard } from '@/components/ui/CinematicCard'
 import { cn } from '@/lib/utils'
 import { easings, durations } from '@/lib/motion'
+import { useShellStore } from '@/stores/shell'
 import type { PortfolioPosition } from '@/types/portfolio'
 
 // ─────────────────────────────────────────────
@@ -33,6 +33,7 @@ interface PositionCardProps {
 }
 
 function PositionCard({ position, index, allocationPercent }: PositionCardProps) {
+  const setActiveTab = useShellStore((s) => s.setActiveTab)
   const { fundCode, fundName, company, value, nominalReturn, realReturn, dayChange, nav } = position
   const pnl = value - position.costBasis
   const isPnlPositive = pnl >= 0
@@ -160,15 +161,16 @@ function PositionCard({ position, index, allocationPercent }: PositionCardProps)
                 ₺{nav.toFixed(4)}
               </span>
             </span>
-            <Link
-              href={`/dashboard/explorer/${fundCode}`}
+            <button
+              type="button"
+              onClick={() => setActiveTab('explorer')}
               className="type-label-sm text-[var(--color-accent-400)] hover:underline
                          focus-visible:outline-none focus-visible:ring-1
                          focus-visible:ring-[var(--color-accent-400)]
-                         underline-offset-2"
+                         underline-offset-2 cursor-pointer bg-transparent border-0 p-0"
             >
-              Detay →
-            </Link>
+              Keşfet →
+            </button>
           </div>
         </div>
       </CinematicCard>
@@ -186,20 +188,24 @@ interface TopPositionsProps {
 }
 
 export function TopPositions({ positions, totalValue }: TopPositionsProps) {
+  const setActiveTab = useShellStore((s) => s.setActiveTab)
+
   return (
     <section aria-label="Portföy pozisyonları">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="type-body-sm font-medium text-[var(--color-fg-muted)]">
           Pozisyonlar
         </h2>
-        <Link
-          href="/dashboard/explorer"
+        <button
+          type="button"
+          onClick={() => setActiveTab('explorer')}
           className="type-label-sm text-[var(--color-accent-400)] hover:underline
                      focus-visible:outline-none focus-visible:ring-1
-                     focus-visible:ring-[var(--color-accent-400)] underline-offset-2"
+                     focus-visible:ring-[var(--color-accent-400)] underline-offset-2
+                     cursor-pointer bg-transparent border-0 p-0"
         >
           Tüm fonları keşfet →
-        </Link>
+        </button>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

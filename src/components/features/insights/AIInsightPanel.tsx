@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CinematicCard } from '@/components/ui/CinematicCard'
 import { easings } from '@/lib/motion'
+import { useShellStore } from '@/stores/shell'
 import type { AIInsight, InsightType, InsightPriority } from '@/types/insights'
 
 // ─────────────────────────────────────────────
@@ -72,6 +72,7 @@ interface AIInsightPanelProps {
 }
 
 export function AIInsightPanel({ insight, isFeatured = false, revealDelay = 0 }: AIInsightPanelProps) {
+  const setActiveTab = useShellStore((s) => s.setActiveTab)
   const cfg      = TYPE_CONFIG[insight.type]
   const priority = PRIORITY_CONFIG[insight.priority]
   const bodyParagraphs = insight.body.split('\n\n').filter(Boolean)
@@ -300,17 +301,18 @@ export function AIInsightPanel({ insight, isFeatured = false, revealDelay = 0 }:
 
             {/* Action CTA — visible on hover */}
             {insight.action && (
-              <Link
-                href={insight.action.href}
+              <button
+                type="button"
+                onClick={() => setActiveTab(insight.action!.tabTarget)}
                 className="type-label-sm font-medium opacity-0 group-hover:opacity-100
                            transition-opacity duration-200 whitespace-nowrap
                            focus-visible:opacity-100 focus-visible:outline-none
                            focus-visible:ring-1 focus-visible:ring-[var(--color-accent-400)]
-                           rounded-sm"
+                           rounded-sm cursor-pointer bg-transparent border-0 p-0"
                 style={{ color: cfg.accent }}
               >
                 {insight.action.label} →
-              </Link>
+              </button>
             )}
           </div>
         </div>
